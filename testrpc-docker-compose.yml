@@ -1,0 +1,41 @@
+version: "3.2"
+
+services:
+  gateway:
+    volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+    ports:
+        - 8081:8080
+    image: functions/gateway:0.6.7
+    networks:
+        - functions
+    environment:
+        dnsrr: "true"  # Temporarily use dnsrr in place of VIP while issue persists on PWD
+        read_timeout: 8
+        write_timeout: 8
+
+    deploy:
+        placement:
+            constraints:
+                - 'node.role == manager'
+                - 'node.platform.os == linux'
+
+  etherium-testrpc:
+    ports:
+        - 8545:8545
+    image: jmkhael/etherium-testrpc
+    build: "./etherium-testrpc/"
+    networks:
+      - functions
+
+  etherium-hello:
+    ports:
+        - 8080:8080
+    image: jmkhael/etherium-hello
+    networks:
+      - functions
+
+networks:
+    functions:
+        driver: overlay
+        #attachable: true
