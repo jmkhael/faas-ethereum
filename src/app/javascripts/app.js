@@ -27,7 +27,7 @@ window.App = {
     // Get the initial account balance so it can be displayed.
     web3.eth.getAccounts(function(err, accs) {
       if (err != null) {
-        alert("There was an error fetching your accounts.");
+        alert("There was an error fetching your accounts.\n\n" + err);
         return;
       }
 

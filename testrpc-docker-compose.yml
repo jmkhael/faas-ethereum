@@ -23,15 +23,15 @@ services:
   etherium-testrpc:
     ports:
         - 8545:8545
-    image: jmkhael/etherium-testrpc
-    build: "./etherium-testrpc/"
+    image: jmkhael/ethereum-testrpc
+    build: "./ethereum-testrpc/"
     networks:
       - functions
 
   etherium-hello:
     ports:
         - 8080:8080
-    image: jmkhael/etherium-hello
+    image: jmkhael/ethereum-hello
     networks:
       - functions
 
